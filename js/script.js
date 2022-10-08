@@ -91,8 +91,8 @@ console.log('clicked element', clickedElement);
 };
 
 const links = document.querySelectorAll('.titles a');
-console.log(links)
+console.log(links);
 
 for(let link of links){
   link.addEventListener('click', titleClickHandler);
-}
+};
