@@ -5,7 +5,9 @@
 const optArticleSelector = '.post',
       optTitleSelector = '.post-title',
       optTitleListSelector = '.titles',
-      optArticleTagsSelector = '.post-tags .list';
+      optArticleTagsSelector = '.post-tags .list',
+      optArticleAuthorSelector = '.post-author',
+      optAuthorLink = '.authors';
      
       function generateTitleLinks(customSelector = ''){
 
@@ -31,7 +33,6 @@ const optArticleSelector = '.post',
 generateTitleLinks();
 
 //-----------------------------------------------------------//
-
 //Switching articles
 
 function titleClickHandler(event){
@@ -65,7 +66,6 @@ for(let link of links){
 };
 
 //-----------------------------------------------------------
-
 //Linking tags HTML
 
 
@@ -90,7 +90,7 @@ function generateTags(){
     };
   
     tagsWrapper.innerHTML = html;
-
+    
   };
 }
 
@@ -99,8 +99,7 @@ function generateTags(){
 generateTags();
 
 //----------------------------------------------------
-
-// Tag clickHandler
+// Tag clickHandler (somehow unable to make clicked tag active)
 
 function tagClickHandler(event){
   /* prevent default action for this event */
@@ -126,11 +125,11 @@ function tagClickHandler(event){
 
   /* find all tag links with "href" attribute equal to the "href" constant */
     const allTagLinks = document.querySelectorAll(href);
-    console.log(allTagLinks)
+    console.log(allTagLinks);
   /* START LOOP: for each found tag link */
 for(let eachTag of allTagLinks){
   eachTag.classList.add('active');
-  console.log(eachTag)
+  console.log(eachTag);
 
     /* add class active */
   };
@@ -155,11 +154,27 @@ function addClickListenersToTags(){
 addClickListenersToTags();
 
 //------------------------------------------------------------------------
-
 //Generating authors
 
-generateAuthors(){
+function generateAuthors(){
 
+  const articles = document.querySelectorAll(optArticleSelector); 
   
-}
+  for( let article of articles){
+    const authorWrapper = article.querySelector(optArticleAuthorSelector);
+    const authorTaken = article.getAttribute('data-author');
+  
+    let html = '';
+    const linkHTML = 'by <a href="#">' + authorTaken + '</a>';
+    html = html + linkHTML;
+  
+    authorWrapper.innerHTML = html;
+  };
+
+};
+
+generateAuthors();
+
+//-------------------------------------------------------
+
 
