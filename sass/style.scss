@@ -24,6 +24,8 @@ body {
   line-height: 1.7;
 }
 
+
+
 .container {
   max-width: 1140px;
   margin: 0 auto;
@@ -117,4 +119,31 @@ body {
   p {
     margin: 0 10px 0 0;
   }
+}
+
+.tags-list li{
+  display: inline;
+}
+
+.tags-list a{
+
+  text-decoration: none;
+}
+
+.tag-size-1{
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.tag-size-2{
+  font-size:16px;
+}
+.tag-size-3{
+  font-size:22px;
+}
+.tag-size-4{
+  font-size:28px;
+}
+.tag-size-5{
+  font-size:32px;
 }

@@ -72,7 +72,16 @@ for(let link of links){
 //-----------------------------------------------------------
 //Linking tags HTML
 
-
+function calculateTagsClass(count, params){
+  
+  const normalizedCount = count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor( ( (count - params.min) / (params.max - params.min) ) * optCloudClassCount + 1 );
+  const calculatedClass = optCloudClassPrefix + classNumber;
+  return calculatedClass;
+  console.log(calculatedClass);
+};
 
 function generateTags(){
   let allTags = {};
@@ -113,8 +122,9 @@ function generateTags(){
 
   let allTagsHTML = '';
     for (let tag in allTags){
-      const linkHTML = '<li><a href="#tag-' + tag +  '"> '+ tag +' </a>' + '(' + allTags[tag] + ') ' + '</li> ';
-      allTagsHTML += linkHTML;
+      const tagLinkHTML = '<li><a href="#tag-' + tag + '"'+ 'class ="' + calculateTagsClass(allTags[tag], tagsParams) +'"> '+ tag +' </a></li> ';
+      allTagsHTML += tagLinkHTML;
+      console.log(tagLinkHTML);
     
     };
     tagList.innerHTML = allTagsHTML;
@@ -123,8 +133,8 @@ function generateTags(){
 function calculateTagsParams(allTags){
 
   const params = {
-    'max': 0,
-    'min': 9999999,
+    'max': 10,
+    'min': 2,
   };
   console.log(params);
 
