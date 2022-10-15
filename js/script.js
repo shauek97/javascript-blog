@@ -7,7 +7,11 @@ const optArticleSelector = '.post',
       optTitleListSelector = '.titles',
       optArticleTagsSelector = '.post-tags .list',
       optArticleAuthorSelector = '.post-author',
-      optAuthorLink = '.authors';
+      optAuthorLink = '.authors',
+      optTagsListSelector = '.tags-list',
+      optCloudClassCount = 5,
+      optCloudClassPrefix = 'tag-size-';
+
      
       function generateTitleLinks(customSelector = ''){
 
@@ -71,7 +75,7 @@ for(let link of links){
 
 
 function generateTags(){
-
+  let allTags = {};
   const articles = document.querySelectorAll(optArticleSelector);
 
   for(let article of articles){
@@ -82,17 +86,62 @@ function generateTags(){
  
     const tagTaken = article.getAttribute('data-tags');
     const tagSplited = tagTaken.split(' ');
-
+    
     for(let tag of tagSplited){
 
       const linkHTML = '<li><a href="#tag-' + tag + '"> '+ tag +' </a></li> ';
       html = html + linkHTML;
+
+      if(!allTags.hasOwnProperty(tag, linkHTML)){
+        
+        allTags[tag]= 1;
+      } else{
+        allTags[tag]++;
+      };
+      
     };
   
     tagsWrapper.innerHTML = html;
     
   };
-}
+  console.log(allTags);
+  const tagList = document.querySelector(optTagsListSelector);
+  console.log(tagList);
+
+  const tagsParams = calculateTagsParams(allTags);
+  console.log('tagsParams:', tagsParams);
+
+  let allTagsHTML = '';
+    for (let tag in allTags){
+      const linkHTML = '<li><a href="#tag-' + tag +  '"> '+ tag +' </a>' + '(' + allTags[tag] + ') ' + '</li> ';
+      allTagsHTML += linkHTML;
+    
+    };
+    tagList.innerHTML = allTagsHTML;
+};
+
+function calculateTagsParams(allTags){
+
+  const params = {
+    'max': 0,
+    'min': 9999999,
+  };
+  console.log(params);
+
+  for(let tag in allTags){
+    
+    if(allTags[tag] > params.max){
+      params.max = allTags[tag];
+    };
+
+    if(allTags[tag] < params.min){
+      params.min = allTags[tag];
+    };
+  };
+  
+  return params;
+ 
+};
 
 
 
@@ -208,6 +257,8 @@ function addClickListenersToAuthors(){
 };
 
 addClickListenersToAuthors();
-//-------------------------------------------------------
+//---------------------------------------------------------------------
+//generate TagList
+
 
 
